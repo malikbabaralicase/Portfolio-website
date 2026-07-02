@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "name": "Malik Babar Ali",
+    "email": "malik@gmail.com",
+    "message": "Service: web-dev\nBudget: under-300\n\nDetails:\nA full stack website where user can add his her info and it creates a full fledge cv",
+    "created_at": "2026-05-02T21:36:04.267484"
+  },
+  {
+    "id": 2,
+    "name": "John Doe",
+    "email": "admin@gmail.com",
+    "message": "Service: web-design\nBudget: under-300\n\nDetails:\nNohing to explain",
+    "created_at": "2026-07-03T00:12:10.367429"
+  }
+]
