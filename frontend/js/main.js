@@ -1,4 +1,4 @@
-const API_BASE = window.location.port === '5000' ? '' : 'http://localhost:5000';
+const API_BASE = '';
 
 document.addEventListener('DOMContentLoaded', () => {
   const observerOptions = {
@@ -241,33 +241,50 @@ document.addEventListener('DOMContentLoaded', () => {
     if (window.lucide) lucide.createIcons();
   }
 
+  // Hardcoded projects — edit this array directly to add/remove/update projects
+  const allProjectsData = [
+    {
+      id: 1,
+      title: "AI Content Generator",
+      description: "An intelligent content generation platform built with Next.js and OpenAI API.",
+      problem: "Writers needed a fast way to generate drafts and outlines.",
+      solution: "Built a seamless UI that interfaces with LLMs to generate high-quality text based on prompts.",
+      tech_stack: "React, Next.js, OpenAI, TailwindCSS",
+      image_url: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800",
+      github_link: "#",
+      live_link: "#"
+    },
+    {
+      id: 2,
+      title: "E-Commerce Dashboard",
+      description: "A comprehensive analytics dashboard for modern online stores.",
+      problem: "Store owners lacked real-time visibility into their sales metrics.",
+      solution: "Developed a real-time data visualization dashboard using modern web technologies.",
+      tech_stack: "Vue.js, Node.js, Express, Chart.js",
+      image_url: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800",
+      github_link: "#",
+      live_link: "#"
+    }
+  ];
+
   if (projectsContainer) {
-    fetch(`${API_BASE}/api/projects`)
-      .then(res => res.json())
-      .then(projects => {
-        projectsLoading.style.display = 'none';
-        allProjects = projects || [];
+    projectsLoading.style.display = 'none';
+    allProjects = allProjectsData;
 
-        if (allProjects.length === 0) {
-          projectsEmpty.style.display = 'block';
-          return;
-        }
+    if (allProjects.length === 0) {
+      projectsEmpty.style.display = 'block';
+    } else {
+      if (projectsFilter) projectsFilter.style.display = 'flex';
+      renderProjects('all');
 
-        if (projectsFilter) projectsFilter.style.display = 'flex';
-        renderProjects('all');
-
-        projectsFilter?.querySelectorAll('.filter-btn').forEach(btn => {
-          btn.addEventListener('click', () => {
-            projectsFilter.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            renderProjects(btn.dataset.filter);
-          });
+      projectsFilter?.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          projectsFilter.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          renderProjects(btn.dataset.filter);
         });
-      })
-      .catch(err => {
-        console.error(err);
-        projectsLoading.innerHTML = '<span style="color: #ff6b6b;">Failed to load projects. Make sure the backend is running on port 5000.</span>';
       });
+    }
   }
 
   // Contact Form
