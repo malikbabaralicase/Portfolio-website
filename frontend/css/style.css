@@ -285,7 +285,9 @@ body.nav-open {
 .hero {
   min-height: 100vh;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
   position: relative;
   overflow: hidden;
   padding-top: 6rem; /* space for navbar */
@@ -368,10 +370,10 @@ body.nav-open {
 /* Hero Stats */
 .hero-stats {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
-  margin-top: 1rem;
-  padding-bottom: 2rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  padding-bottom: 3rem;
 }
 
 .stat-item {
