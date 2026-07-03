@@ -807,6 +807,159 @@ body.nav-open {
   margin-top: 2rem;
 }
 
+/* ── Projects Coming Soon ─────────────────────────────────────────────────── */
+.projects-coming-soon {
+  grid-column: 1 / -1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 5rem 2rem;
+  border-radius: 16px;
+  border: 1px solid var(--glass-border);
+  background: rgba(31, 40, 51, 0.35);
+  backdrop-filter: blur(12px);
+  overflow: hidden;
+  text-align: center;
+  min-height: 320px;
+}
+
+/* Floating neon orbs in background */
+.coming-soon-orbs {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  animation: orbFloat 6s ease-in-out infinite alternate;
+}
+
+.orb-1 {
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(102, 252, 241, 0.18), transparent 70%);
+  top: -40px;
+  left: -40px;
+  animation-delay: 0s;
+}
+
+.orb-2 {
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle, rgba(69, 162, 158, 0.2), transparent 70%);
+  bottom: -30px;
+  right: -30px;
+  animation-delay: 2s;
+}
+
+.orb-3 {
+  width: 140px;
+  height: 140px;
+  background: radial-gradient(circle, rgba(102, 252, 241, 0.12), transparent 70%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation-delay: 4s;
+}
+
+@keyframes orbFloat {
+  0%   { opacity: 0.4; transform: scale(0.85) translate(0, 0); }
+  100% { opacity: 1;   transform: scale(1.15) translate(10px, -10px); }
+}
+
+/* Central icon */
+.coming-soon-icon {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(102, 252, 241, 0.12), rgba(69, 162, 158, 0.08));
+  border: 1px solid rgba(102, 252, 241, 0.25);
+  color: var(--accent-cyan);
+  box-shadow:
+    0 0 30px rgba(102, 252, 241, 0.15),
+    inset 0 0 20px rgba(102, 252, 241, 0.05);
+  animation: iconPulse 3s ease-in-out infinite;
+}
+
+@keyframes iconPulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(102, 252, 241, 0.15), inset 0 0 20px rgba(102, 252, 241, 0.05); }
+  50%       { box-shadow: 0 0 45px rgba(102, 252, 241, 0.35), inset 0 0 30px rgba(102, 252, 241, 0.1); }
+}
+
+.coming-soon-title {
+  position: relative;
+  z-index: 1;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--white);
+  letter-spacing: 1px;
+}
+
+.coming-soon-title::after {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-cyan), var(--accent-teal));
+  border-radius: 2px;
+  margin: 0.6rem auto 0;
+  animation: lineExpand 2s ease-in-out infinite alternate;
+}
+
+@keyframes lineExpand {
+  from { width: 40px; opacity: 0.6; }
+  to   { width: 80px; opacity: 1; }
+}
+
+.coming-soon-desc {
+  position: relative;
+  z-index: 1;
+  font-size: 1rem;
+  color: var(--text-main);
+  max-width: 480px;
+  line-height: 1.75;
+}
+
+/* Bouncing dots loader */
+.coming-soon-dots {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.coming-soon-dots span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent-cyan);
+  animation: dotBounce 1.4s ease-in-out infinite;
+}
+
+.coming-soon-dots span:nth-child(1) { animation-delay: 0s; }
+.coming-soon-dots span:nth-child(2) { animation-delay: 0.2s; }
+.coming-soon-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes dotBounce {
+  0%, 80%, 100% { transform: translateY(0);    opacity: 0.4; }
+  40%           { transform: translateY(-12px); opacity: 1;   }
+}
+
+
 /* Contact Form */
 .contact-grid {
   display: grid;

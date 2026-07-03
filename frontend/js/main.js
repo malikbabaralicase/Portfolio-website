@@ -241,38 +241,67 @@ document.addEventListener('DOMContentLoaded', () => {
     if (window.lucide) lucide.createIcons();
   }
 
-  // Hardcoded projects — edit this array directly to add/remove/update projects
-  const allProjectsData = [
-    {
-      id: 1,
-      title: "AI Content Generator",
-      description: "An intelligent content generation platform built with Next.js and OpenAI API.",
-      problem: "Writers needed a fast way to generate drafts and outlines.",
-      solution: "Built a seamless UI that interfaces with LLMs to generate high-quality text based on prompts.",
-      tech_stack: "React, Next.js, OpenAI, TailwindCSS",
-      image_url: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800",
-      github_link: "#",
-      live_link: "#"
-    },
-    {
-      id: 2,
-      title: "E-Commerce Dashboard",
-      description: "A comprehensive analytics dashboard for modern online stores.",
-      problem: "Store owners lacked real-time visibility into their sales metrics.",
-      solution: "Developed a real-time data visualization dashboard using modern web technologies.",
-      tech_stack: "Vue.js, Node.js, Express, Chart.js",
-      image_url: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800",
-      github_link: "#",
-      live_link: "#"
-    }
-  ];
+  // ── Projects data ────────────────────────────────────────────────────────────
+  // Projects are temporarily hidden while they are being prepared.
+  // Uncomment the entries below and set allProjectsData = [...] when ready.
+  //
+  // const allProjectsData = [
+  //   {
+  //     id: 1,
+  //     title: "AI Content Generator",
+  //     description: "An intelligent content generation platform built with Next.js and OpenAI API.",
+  //     problem: "Writers needed a fast way to generate drafts and outlines.",
+  //     solution: "Built a seamless UI that interfaces with LLMs to generate high-quality text based on prompts.",
+  //     tech_stack: "React, Next.js, OpenAI, TailwindCSS",
+  //     image_url: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800",
+  //     github_link: "#",
+  //     live_link: "#"
+  //   },
+  //   {
+  //     id: 2,
+  //     title: "E-Commerce Dashboard",
+  //     description: "A comprehensive analytics dashboard for modern online stores.",
+  //     problem: "Store owners lacked real-time visibility into their sales metrics.",
+  //     solution: "Developed a real-time data visualization dashboard using modern web technologies.",
+  //     tech_stack: "Vue.js, Node.js, Express, Chart.js",
+  //     image_url: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800",
+  //     github_link: "#",
+  //     live_link: "#"
+  //   }
+  // ];
+
+  // Empty array → shows the "Coming Soon" state
+  const allProjectsData = [];
 
   if (projectsContainer) {
     projectsLoading.style.display = 'none';
     allProjects = allProjectsData;
 
     if (allProjects.length === 0) {
-      projectsEmpty.style.display = 'block';
+      // Show animated "coming soon" banner instead of plain empty text
+      projectsEmpty.style.display = 'none';
+      projectsFilter.style.display = 'none';
+      projectsContainer.innerHTML = `
+        <div class="projects-coming-soon">
+          <div class="coming-soon-orbs">
+            <span class="orb orb-1"></span>
+            <span class="orb orb-2"></span>
+            <span class="orb orb-3"></span>
+          </div>
+          <div class="coming-soon-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+              <path d="M2 17l10 5 10-5"/>
+              <path d="M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          <h3 class="coming-soon-title">Projects Loading Soon</h3>
+          <p class="coming-soon-desc">Exciting projects are currently being crafted and documented.<br/>Check back shortly — great things are on the way!</p>
+          <div class="coming-soon-dots">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+      `;
     } else {
       if (projectsFilter) projectsFilter.style.display = 'flex';
       renderProjects('all');
