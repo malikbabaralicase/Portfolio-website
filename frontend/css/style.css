@@ -927,6 +927,12 @@ body.nav-open {
   opacity: 1;
 }
 
+@media (hover: none) {
+  .slider-arrow {
+    opacity: 1;
+  }
+}
+
 .slider-arrow:hover {
   background: var(--accent-cyan);
   color: var(--bg-dark);
