@@ -1,7 +1,10 @@
 {
   "name": "portfolio-vercel",
   "version": "1.0.0",
+  "scripts": {
+    "dev": "node dev-server.js"
+  },
   "dependencies": {
-    "nodemailer": "^6.9.14"
+    "nodemailer": "^9.0.3"
   }
 }

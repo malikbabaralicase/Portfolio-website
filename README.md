@@ -5,7 +5,7 @@ A lightweight personal portfolio built with **HTML, CSS, JavaScript** on the fro
 ## Features
 
 - **Static & fast**: Pure HTML/CSS/JS frontend, no build step required.
-- **Beautiful UI**: Glassmorphism design system with TailwindCSS.
+- **Beautiful UI**: Hand-written glassmorphism design system in vanilla CSS.
 - **Projects section**: Hardcoded directly in `frontend/js/main.js` — edit that array to add/update/remove projects.
 - **Contact form**: Submits to `/api/contact`, which sends you an email via Gmail SMTP (no database, no saved messages).
 
@@ -19,13 +19,10 @@ own-website/
 │   ├── css/
 │   │   └── style.css      # Styles and animations
 │   ├── js/
-│   │   ├── main.js        # Interactions, hardcoded projects, contact form logic
-│   │   ├── tailwind-config.js
-│   │   ├── three-hero.js
-│   │   ├── scroll-3d.js
-│   │   ├── scene-detect.js
-│   │   └── tilt-cards.js
+│   │   └── main.js        # Interactions, hardcoded projects, contact form logic
 │   ├── images/
+│   ├── robots.txt
+│   ├── sitemap.xml
 │   └── index.html
 ├── vercel.json             # Routes static frontend + the serverless function
 ├── package.json            # Just needs nodemailer

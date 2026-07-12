@@ -1,5 +1,15 @@
 const API_BASE = '';
 
+window.addEventListener('load', () => {
+  const pageLoader = document.getElementById('page-loader');
+  if (pageLoader) {
+    setTimeout(() => {
+      pageLoader.classList.add('loader-hidden');
+      setTimeout(() => pageLoader.remove(), 600);
+    }, 400);
+  }
+});
+
 document.addEventListener('DOMContentLoaded', () => {
   const observerOptions = {
     root: null,
@@ -161,6 +171,8 @@ document.addEventListener('DOMContentLoaded', () => {
     return 'web';
   }
 
+  const categoryLabels = { web: 'Web App', mobile: 'Mobile', ai: 'AI / Data' };
+
   let allProjects = [];
 
   const projectsContainer = document.getElementById('projects-container');
@@ -183,95 +195,195 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     projectsEmpty.style.display = 'none';
-    projectsContainer.innerHTML = filtered.map((project, idx) => `
-      <div class="project-card fade-in-up visible" data-category="${getProjectCategory(project)}" style="transition-delay: ${idx * 0.1}s">
-        <div class="project-img-wrap">
-           ${project.image_url ? `
-             <img src="${project.image_url}" alt="${project.title}" class="project-img" loading="lazy" />
-           ` : `
-             <div class="project-img-placeholder">
-               <i data-lucide="image"></i>
-             </div>
-           `}
-        </div>
+    projectsContainer.innerHTML = filtered.map((project, idx) => {
+      const imagesList = project.images || [project.image_url || ''];
+      const hasSlider = imagesList.length > 1;
+      const category = getProjectCategory(project);
+      const techTags = (project.tech_stack || '')
+        .split(',')
+        .map(t => t.trim())
+        .filter(Boolean);
 
-        <div class="project-content">
-          <h3 class="card-title project-title">${project.title}</h3>
-          <p class="card-desc">${project.description}</p>
+      return `
+        <div class="project-card fade-in-up visible" data-category="${category}" style="transition-delay: ${idx * 0.1}s">
+          <div class="project-img-wrap">
+             <span class="project-index">0${idx + 1}</span>
+             <span class="project-category-badge">${categoryLabels[category]}</span>
+             ${hasSlider ? `
+               <div class="project-slider">
+                 <div class="slides-container">
+                   ${imagesList.map((img, sIdx) => `
+                     <img src="${img}" alt="${project.title} slide ${sIdx + 1}" class="slide ${sIdx === 0 ? 'active' : ''}" loading="lazy" />
+                   `).join('')}
+                 </div>
+                 <button type="button" class="slider-arrow slider-arrow-prev" aria-label="Previous image">
+                   <i data-lucide="chevron-left"></i>
+                 </button>
+                 <button type="button" class="slider-arrow slider-arrow-next" aria-label="Next image">
+                   <i data-lucide="chevron-right"></i>
+                 </button>
+                 <div class="slider-dots">
+                   ${imagesList.map((_, sIdx) => `
+                     <button type="button" class="slider-dot ${sIdx === 0 ? 'active' : ''}" data-index="${sIdx}" aria-label="Go to image ${sIdx + 1}"></button>
+                   `).join('')}
+                 </div>
+               </div>
+             ` : `
+               ${project.image_url ? `
+                 <img src="${project.image_url}" alt="${project.title}" class="project-img" loading="lazy" />
+               ` : `
+                 <div class="project-img-placeholder">
+                   <i data-lucide="image"></i>
+                 </div>
+               `}
+             `}
+             <div class="project-img-overlay"></div>
+          </div>
 
-          ${(project.problem || project.solution) ? `
-            <div class="project-details">
-              ${project.problem ? `
-                <div class="project-detail-block">
-                  <span class="detail-label detail-problem">Problem</span>
-                  <p>${project.problem}</p>
-                </div>
-              ` : ''}
-              ${project.solution ? `
-                <div class="project-detail-block">
-                  <span class="detail-label detail-solution">Solution</span>
-                  <p>${project.solution}</p>
-                </div>
-              ` : ''}
+          <div class="project-content">
+            <h3 class="card-title project-title">${project.title}</h3>
+            <div class="project-languages">
+              ${techTags.map(tag => `<span class="tech-pill">${tag}</span>`).join('')}
             </div>
-          ` : ''}
+            <div class="project-description-box">
+              ${project.description}
+            </div>
 
-          <div class="skill-tags">
-            ${(project.tech_stack || '').split(',').filter(t => t.trim()).map(tech => `
-              <span class="skill-tag">${tech.trim()}</span>
-            `).join('')}
-          </div>
+            ${(project.problem || project.solution) ? `
+              <div class="project-details">
+                ${project.problem ? `
+                  <div class="project-detail-block detail-block-problem">
+                    <span class="detail-label detail-problem"><i data-lucide="alert-triangle"></i>Problem</span>
+                    <p>${project.problem}</p>
+                  </div>
+                ` : ''}
+                ${project.solution ? `
+                  <div class="project-detail-block detail-block-solution">
+                    <span class="detail-label detail-solution"><i data-lucide="lightbulb"></i>Solution</span>
+                    <p>${project.solution}</p>
+                  </div>
+                ` : ''}
+              </div>
+            ` : ''}
 
-          <div class="project-links">
-             ${project.live_link && project.live_link !== '#' ? `
-               <a href="${project.live_link}" target="_blank" rel="noopener noreferrer" class="project-link-btn">
-                 <button class="btn btn-primary">Live Demo</button>
-               </a>
-             ` : ''}
-             ${project.github_link && project.github_link !== '#' ? `
-               <a href="${project.github_link}" target="_blank" rel="noopener noreferrer" class="project-link-btn">
-                 <button class="btn btn-secondary">Code</button>
-               </a>
-             ` : ''}
+            <div class="project-links">
+               ${project.live_link && project.live_link !== '#' ? `
+                 <a href="${project.live_link}" target="_blank" rel="noopener noreferrer" class="project-link-btn">
+                   <button class="btn btn-primary">Live Demo</button>
+                 </a>
+               ` : ''}
+               ${project.github_link && project.github_link !== '#' ? `
+                 <a href="${project.github_link}" target="_blank" rel="noopener noreferrer" class="project-link-btn">
+                   <button class="btn btn-secondary">Code</button>
+                 </a>
+               ` : ''}
+            </div>
           </div>
         </div>
-      </div>
-    `).join('');
+      `;
+    }).join('');
 
     if (window.lucide) lucide.createIcons();
+    initProjectSliders();
+  }
+
+  function initProjectSliders() {
+    const sliders = document.querySelectorAll('.project-slider');
+    sliders.forEach(slider => {
+      const slides = slider.querySelectorAll('.slide');
+      const dots = slider.querySelectorAll('.slider-dot');
+      if (slides.length <= 1) return;
+
+      let currentIndex = 0;
+      let slideInterval;
+
+      function showSlide(index) {
+        slides.forEach(s => s.classList.remove('active'));
+        dots.forEach(d => d.classList.remove('active'));
+
+        currentIndex = (index + slides.length) % slides.length;
+        slides[currentIndex].classList.add('active');
+        dots[currentIndex].classList.add('active');
+      }
+
+      function nextSlide() {
+        showSlide(currentIndex + 1);
+      }
+
+      function prevSlide() {
+        showSlide(currentIndex - 1);
+      }
+
+      function startAutoplay() {
+        stopAutoplay();
+        slideInterval = setInterval(nextSlide, 3500);
+      }
+
+      function stopAutoplay() {
+        if (slideInterval) clearInterval(slideInterval);
+      }
+
+      dots.forEach((dot, idx) => {
+        dot.addEventListener('click', () => {
+          showSlide(idx);
+          startAutoplay();
+        });
+      });
+
+      const prevBtn = slider.querySelector('.slider-arrow-prev');
+      const nextBtn = slider.querySelector('.slider-arrow-next');
+
+      prevBtn?.addEventListener('click', () => {
+        prevSlide();
+        startAutoplay();
+      });
+
+      nextBtn?.addEventListener('click', () => {
+        nextSlide();
+        startAutoplay();
+      });
+
+      startAutoplay();
+
+      slider.addEventListener('mouseenter', stopAutoplay);
+      slider.addEventListener('mouseleave', startAutoplay);
+    });
   }
 
   // ── Projects data ────────────────────────────────────────────────────────────
-  // Projects are temporarily hidden while they are being prepared.
-  // Uncomment the entries below and set allProjectsData = [...] when ready.
-  //
-  // const allProjectsData = [
-  //   {
-  //     id: 1,
-  //     title: "AI Content Generator",
-  //     description: "An intelligent content generation platform built with Next.js and OpenAI API.",
-  //     problem: "Writers needed a fast way to generate drafts and outlines.",
-  //     solution: "Built a seamless UI that interfaces with LLMs to generate high-quality text based on prompts.",
-  //     tech_stack: "React, Next.js, OpenAI, TailwindCSS",
-  //     image_url: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800",
-  //     github_link: "#",
-  //     live_link: "#"
-  //   },
-  //   {
-  //     id: 2,
-  //     title: "E-Commerce Dashboard",
-  //     description: "A comprehensive analytics dashboard for modern online stores.",
-  //     problem: "Store owners lacked real-time visibility into their sales metrics.",
-  //     solution: "Developed a real-time data visualization dashboard using modern web technologies.",
-  //     tech_stack: "Vue.js, Node.js, Express, Chart.js",
-  //     image_url: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800",
-  //     github_link: "#",
-  //     live_link: "#"
-  //   }
-  // ];
-
-  // Empty array → shows the "Coming Soon" state
-  const allProjectsData = [];
+  const allProjectsData = [
+    {
+      id: 1,
+      title: "buildyoucv",
+      description: "A full-stack, interactive 3D CV Builder and Portfolio Generator with real-time responsive template rendering and one-click PDF export.",
+      problem: "Building a polished resume is painful — text editors break formatting on every edit, and most online builders are paywalled, outdated, or offer zero real-time feedback.",
+      solution: "buildyourcv.io separates data from styling: structured entry, live template rendering, high-fidelity PDF export, and an immersive 3D building experience.",
+      tech_stack: "three.js , React.js , vite , Node.js , Expres.js",
+      images: [
+        "./images/projects/buildyourcv/first.jpg",
+        "./images/projects/buildyourcv/second.jpg",
+        "./images/projects/buildyourcv/third.jpg",
+      ],
+      github_link: "https://github.com/malikbabaralicase/buildyourcv.io",
+      live_link: "https://buildyourcvio.vercel.app/"
+    },
+    {
+      id: 2,
+      title: "MBA's Gym SaaS Solution",
+      description: "A full-stack gym management SaaS that replaces spreadsheets and paper logs with one real-time dashboard for members, plans, attendance, and staff.",
+      problem: "Independent gyms run on scattered tools — spreadsheets, notebooks, WhatsApp reminders — with no clear record of staff actions, expiring memberships, or traffic trends.",
+      solution: "MBA'S GYM CENTER is a role-based SaaS dashboard for member onboarding, QR check-ins, renewal tracking, activity logs, and automated Zapier reminders.",
+      tech_stack: "Next.js , React.js , supabase , Zapier , Recharts",
+      images: [
+        "./images/projects/mbagymsaas/loginpage.PNG",
+        "./images/projects/mbagymsaas/dashboard.PNG",
+        "./images/projects/mbagymsaas/memberprofile.PNG",
+        "./images/projects/mbagymsaas/members.PNG",
+      ],
+      github_link: "https://github.com/malikbabaralicase/mbas-gym-center",
+      live_link: "https://mbas-gym-center.vercel.app/"
+    }
+  ];
 
   if (projectsContainer) {
     projectsLoading.style.display = 'none';
@@ -340,7 +452,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const data = {
         name: `${firstName} ${lastName}`,
         email: email,
-        message: `Service: ${service}\nBudget: ${budget}\n\nDetails:\n${baseMessage}`
+        message: `Service: ${service}\nBudget: ${budget}\n\nDetails:\n${baseMessage}`,
+        website: document.getElementById('hp-field')?.value || ''
       };
 
       try {

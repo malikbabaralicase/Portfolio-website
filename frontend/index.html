@@ -9,6 +9,7 @@
       content="Malik Babar Ali — Full Stack Developer & Designer. I build high-performance websites, mobile apps, and SEO-optimized digital products."
     />
     <meta name="author" content="Malik Babar Ali" />
+    <link rel="canonical" href="https://malikbabaraliofficial.vercel.app/" />
     <meta
       property="og:title"
       content="Malik Babar Ali - Full Stack Developer"
@@ -18,7 +19,21 @@
       content="Transforming the Digital Future. Web development, mobile apps, UI/UX design, and SEO."
     />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="./images/profile.png" />
+    <meta property="og:url" content="https://malikbabaraliofficial.vercel.app/" />
+    <meta
+      property="og:image"
+      content="https://malikbabaraliofficial.vercel.app/images/profile.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Malik Babar Ali - Full Stack Developer" />
+    <meta
+      name="twitter:description"
+      content="Transforming the Digital Future. Web development, mobile apps, UI/UX design, and SEO."
+    />
+    <meta
+      name="twitter:image"
+      content="https://malikbabaraliofficial.vercel.app/images/profile.png"
+    />
     <meta name="theme-color" content="#0B0C10" />
     <link
       rel="icon"
@@ -26,12 +41,44 @@
     />
 
     <!-- Custom Vanilla CSS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap"
+    />
     <link rel="stylesheet" href="./css/style.css" />
 
     <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/lucide@1.24.0" defer></script>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Malik Babar Ali",
+        "url": "https://malikbabaraliofficial.vercel.app/",
+        "image": "https://malikbabaraliofficial.vercel.app/images/profile.png",
+        "jobTitle": "Full Stack Developer",
+        "email": "mailto:malikbabarali520@gmail.com",
+        "sameAs": [
+          "https://www.instagram.com/malikbabarali.5/",
+          "https://www.linkedin.com/in/malik-babar-ali-9a5165347/",
+          "https://github.com/malikbabaralicase"
+        ]
+      }
+    </script>
   </head>
   <body>
+    <!-- Page Loader -->
+    <div id="page-loader" class="page-loader" aria-hidden="true">
+      <div class="loader-dots">
+        <span class="loader-dot dot-purple"></span>
+        <span class="loader-dot dot-pink"></span>
+        <span class="loader-dot dot-blue"></span>
+      </div>
+    </div>
+
     <!-- Navbar -->
     <nav class="navbar" id="navbar">
       <div
@@ -108,6 +155,8 @@
               src="./images/profile.png"
               alt="Malik Babar Ali"
               class="hero-image"
+              width="447"
+              height="559"
             />
           </div>
         </div>
@@ -308,18 +357,21 @@
               <div class="tool-card">
                 <img
                   src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg"
+                  width="32" height="32"
                   alt="HTML5"
                 /><span>HTML5</span>
               </div>
               <div class="tool-card">
                 <img
                   src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg"
+                  width="32" height="32"
                   alt="CSS3"
                 /><span>CSS3</span>
               </div>
               <div class="tool-card">
                 <img
                   src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"
+                  width="32" height="32"
                   alt="JavaScript"
                 /><span>JavaScript</span>
               </div>
@@ -327,18 +379,21 @@
               <div class="tool-card">
                 <img
                   src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
+                  width="32" height="32"
                   alt="React"
                 /><span>React / React Native</span>
               </div>
               <div class="tool-card">
                 <img
                   src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg"
+                  width="32" height="32"
                   alt="Node.js"
                 /><span>Node.js</span>
               </div>
               <div class="tool-card">
                 <img
                   src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
+                  width="32" height="32"
                   alt="Python"
                 /><span>Python (Flask)</span>
               </div>
@@ -346,18 +401,21 @@
               <div class="tool-card">
                 <img
                   src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg"
+                  width="32" height="32"
                   alt="Figma"
                 /><span>Figma</span>
               </div>
               <div class="tool-card">
                 <img
                   src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wordpress/wordpress-plain.svg"
+                  width="32" height="32"
                   alt="WordPress"
                 /><span>WordPress</span>
               </div>
               <div class="tool-card">
                 <img
                   src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg"
+                  width="32" height="32"
                   alt="Git"
                 /><span>Git / CI/CD</span>
               </div>
@@ -652,11 +710,22 @@
                       id="message"
                       name="message"
                       required
+                      maxlength="2000"
                       rows="5"
                       class="form-control"
                       placeholder="Tell me about your project, goals, and timeline..."
                     ></textarea>
                   </div>
+
+                  <input
+                    type="text"
+                    id="hp-field"
+                    name="website"
+                    tabindex="-1"
+                    autocomplete="off"
+                    aria-hidden="true"
+                    style="position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0"
+                  />
 
                   <p
                     id="contact-error"
@@ -719,7 +788,7 @@
       </div>
     </footer>
 
-    <script src="./js/main.js"></script>
+    <script src="./js/main.js" defer></script>
     <script>
       lucide.createIcons();
       document.getElementById("year").textContent = new Date().getFullYear();
